@@ -14,7 +14,6 @@ function Index() {
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
-      setMessage("Error fetching orders");
     }
   };
 
