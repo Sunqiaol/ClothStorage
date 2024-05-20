@@ -5,12 +5,12 @@ require('dotenv').config();
 
 // Initialize Sequelize with database credentials
 const sequelize = new Sequelize(
-    'clothstorage',
+    'project_makingnor',
     process.env.DB_USERNAME,
     process.env.DB_PASSWORD,
     {
         host: process.env.DB_HOST,
-        port: 3306,
+        port: 3307,
         dialect: 'mysql',
         logging: console.log,
     }
