@@ -1,0 +1,21 @@
+[debug] [2024-05-21T02:29:42.299Z] ----------------------------------------------------------------------
+[debug] [2024-05-21T02:29:42.302Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\sqlin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-05-21T02:29:42.303Z] CLI Version:   12.7.0
+[debug] [2024-05-21T02:29:42.303Z] Platform:      win32
+[debug] [2024-05-21T02:29:42.303Z] Node Version:  v20.11.1
+[debug] [2024-05-21T02:29:42.303Z] Time:          Mon May 20 2024 22:29:42 GMT-0400 (Eastern Daylight Time)
+[debug] [2024-05-21T02:29:42.303Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-05-21T02:29:42.310Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-05-21T02:29:42.311Z] > authorizing via signed-in user (fibsquad499@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\sqlin\Desktop\Project\starter-code\starter-code\ClothStorage\server
+
