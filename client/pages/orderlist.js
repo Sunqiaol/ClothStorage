@@ -41,38 +41,7 @@ const Orderlist = () => {
     }
   };
 
-  const addOrder = async (event) => {
-    event.preventDefault();
-    const orderId = document.getElementById('orderId').value;
-    const createdDate = document.getElementById('createdDate').value;
-    const customerName = document.getElementById('customerName').value;
-    const status = document.getElementById('status').value;
-    const deliveryDate = document.getElementById('deliveryDate').value || null;
-    const orderTotal = document.getElementById('orderTotal').value;
-    const shippingAddress = document.getElementById('shippingAddress').value;
-
-    try {
-      const response = await axios.post(process.env.NEXT_PUBLIC_SERVER_URL + '/api/order/addOrder', {
-        orderId,
-        createdDate,
-        customerName,
-        status,
-        deliveryDate,
-        orderTotal,
-        shippingAddress,
-      });
-
-      if (response.status === 201) {
-        alert('Order added successfully!');
-        fetchOrderData(); // Fetch updated list of orders after adding a new one
-        setShowModal(false); // Close the modal
-      } else {
-        alert('Error adding order');
-      }
-    } catch (error) {
-      console.error('Error adding order:', error);
-    }
-  };
+  
 
   const userSignout = () => {
     signOut(auth).then(() => {
@@ -81,6 +50,10 @@ const Orderlist = () => {
       console.error('Error Signing Out:', error);
     });
   };
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+};
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -100,12 +73,8 @@ const Orderlist = () => {
         </div>
 
         <div className="mb-8">
-          <button
-            onClick={() => setShowModal(true)}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200"
-          >
-            Add New Order
-          </button>
+       
+          { <AddOrderForm fetchOrderData={fetchOrderData} />}
         </div>
 
         <div>
@@ -141,7 +110,7 @@ const Orderlist = () => {
         </div>
       </div>
 
-      {showModal && <AddOrderForm fetchOrderData={fetchOrderData} />}
+
 
     </div>
   );

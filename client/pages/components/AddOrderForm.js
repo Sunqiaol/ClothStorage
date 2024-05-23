@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddOrderForm = ({ fetchOrderData }) => {
-    const [showModal, setShowModal] = useState(false); // State to control modal visibility
+    const [showModal, setShowModal] = useState(false);
     const [orderId, setOrderId] = useState('');
     const [createdDate, setCreatedDate] = useState('');
     const [customerName, setCustomerName] = useState('');
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('Pending');
     const [deliveryDate, setDeliveryDate] = useState(null);
     const [orderTotal, setOrderTotal] = useState('');
     const [shippingAddress, setShippingAddress] = useState('');
 
+    const toggleModal = () => {
+        setShowModal(prev => !prev);
+    };
+
     const addOrder = async (event) => {
-
-
         event.preventDefault();
         try {
             const response = await axios.post(process.env.NEXT_PUBLIC_SERVER_URL + '/api/order/addOrder', {
@@ -28,9 +30,9 @@ const AddOrderForm = ({ fetchOrderData }) => {
 
             if (response.status === 201) {
                 alert('Order added successfully!');
-                fetchOrderData(); // Fetch updated list of orders after adding a new one
-                resetForm(); // Reset form fields after successful submission
-                setShowModal(false); // Close the modal
+                fetchOrderData();
+                resetForm();
+                setShowModal(false);
             } else {
                 alert('Error adding order');
             }
@@ -51,9 +53,6 @@ const AddOrderForm = ({ fetchOrderData }) => {
 
     return (
         <>
-            <button onClick={() => setShowModal(true)} className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200">
-                Add New Order
-            </button>
             {showModal && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -99,7 +98,6 @@ const AddOrderForm = ({ fetchOrderData }) => {
                                 <option value="Pending">Pending</option>
                                 <option value="Shipped">Shipped</option>
                                 <option value="Delivered">Delivered</option>
-                                
                             </select>
                             <input
                                 type="date"
@@ -131,7 +129,7 @@ const AddOrderForm = ({ fetchOrderData }) => {
                             <div className="flex justify-end space-x-4">
                                 <button
                                     type="button"
-                                    onClick={() => setShowModal(false)}
+                                    onClick={toggleModal}
                                     className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-200"
                                 >
                                     Cancel
@@ -147,6 +145,14 @@ const AddOrderForm = ({ fetchOrderData }) => {
                     </div>
                 </div>
             )}
+            <div className="mb-8">
+                <button
+                    onClick={toggleModal}
+                    className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200"
+                >
+                    Add New Order
+                </button>
+            </div>
         </>
     );
 };
