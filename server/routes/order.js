@@ -19,9 +19,23 @@ router.get('/getAllOrders', async (req, res) => {
 
 
 router.post('/addOrder', async (req, res) => {
-    const {orderId, date} = req.body;
+    const { orderId,
+        createdDate,
+        customerName,
+        status,
+        deliveryDate,
+        orderTotal,
+        shippingAddress, } = req.body;
     try {
-        const newOrder = await Order.create({orderId,date});
+        const newOrder = await Order.create({
+            orderId,
+            createdDate,
+            customerName,
+            status,
+            deliveryDate,
+            orderTotal,
+            shippingAddress,
+        });
         res.status(201).json(newOrder);
     } catch (error) {
         console.error('Error Adding orders:', error);
