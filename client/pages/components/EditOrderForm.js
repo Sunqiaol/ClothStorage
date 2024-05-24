@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const EditOrderForm = ({ order, fetchOrderData, closeModal }) => {
     const [orderId, setOrderId] = useState(order?.orderId || '');
-    const [createdDate, setCreatedDate] = useState(order.createdDate ? order.createdDate.substring(0, 10) : null); // Handle null case
+    const [createdDate, setCreatedDate] = useState(order?.createdDate ? order.createdDate.substring(0, 10) : null);
     const [customerName, setCustomerName] = useState(order?.customerName || '');
     const [status, setStatus] = useState(order?.status|| '');
     const [deliveryDate, setDeliveryDate] = useState(order.deliveryDate ? order.deliveryDate.substring(0, 10) : null); // Handle null case
