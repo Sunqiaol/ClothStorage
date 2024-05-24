@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { signOut } from "firebase/auth";
+import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useRouter } from 'next/router';
 import AddOrderForm from './components/AddOrderForm';
-
-
+import EditOrderForm from './components/EditOrderForm';
 
 const Orderlist = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showAddOrderModal, setShowAddOrderModal] = useState(false);
+  const [showEditOrderModal, setShowEditOrderModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -41,8 +42,6 @@ const Orderlist = () => {
     }
   };
 
-  
-
   const userSignout = () => {
     signOut(auth).then(() => {
       router.push('/login');
@@ -51,9 +50,19 @@ const Orderlist = () => {
     });
   };
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
-};
+  const toggleAddOrderModal = () => {
+    setShowAddOrderModal(!showAddOrderModal);
+  };
+
+  const openEditOrderModal = (order) => {
+    setSelectedOrder(order);
+    setShowEditOrderModal(true);
+  };
+
+  const closeEditOrderModal = () => {
+    setSelectedOrder(null);
+    setShowEditOrderModal(false);
+  };
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -73,7 +82,7 @@ const Orderlist = () => {
         </div>
 
         <div className="mb-8">
-       
+         
           { <AddOrderForm fetchOrderData={fetchOrderData} />}
         </div>
 
@@ -94,12 +103,12 @@ const Orderlist = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {orders.map(order => (
-                  <tr key={order.orderId} className="hover:bg-gray-100">
+                  <tr key={order.orderId} className="hover:bg-gray-100 cursor-pointer" onClick={() => openEditOrderModal(order)}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.orderId}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{new Date(order.createdDate).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.createdDate ? order.createdDate.split('T')[0] : 'N/A'}</td> {/* Format createdDate */}
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.customerName}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.status}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.deliveryDate ? new Date(order.deliveryDate).toLocaleDateString() : 'N/A'}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.deliveryDate ? order.deliveryDate.split('T')[0] : 'N/A'}</td> {/* Format deliveryDate */}
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.orderTotal}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.shippingAddress}</td>
                   </tr>
@@ -109,9 +118,13 @@ const Orderlist = () => {
           </div>
         </div>
       </div>
-
-
-
+      {showEditOrderModal && (
+        <EditOrderForm
+          order={selectedOrder}
+          fetchOrderData={fetchOrderData}
+          closeModal={closeEditOrderModal}
+        />
+      )}
     </div>
   );
 }
