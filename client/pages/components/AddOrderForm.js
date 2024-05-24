@@ -46,7 +46,7 @@ const AddOrderForm = ({ fetchOrderData }) => {
         setOrderId('');
         setCreatedDate('');
         setCustomerName('');
-        setStatus('');
+        setStatus('Pending');
         setDeliveryDate('');
         setOrderTotal('');
         setShippingAddress('');
