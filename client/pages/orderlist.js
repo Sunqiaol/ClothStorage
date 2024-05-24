@@ -82,7 +82,6 @@ const Orderlist = () => {
         </div>
 
         <div className="mb-8">
-         
           { <AddOrderForm fetchOrderData={fetchOrderData} />}
         </div>
 

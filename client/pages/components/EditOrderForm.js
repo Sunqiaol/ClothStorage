@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const EditOrderForm = ({ order, fetchOrderData, closeModal }) => {
-    const [orderId, setOrderId] = useState(order.orderId);
+    const [orderId, setOrderId] = useState(order?.orderId || '');
     const [createdDate, setCreatedDate] = useState(order.createdDate.substring(0, 10));
     const [customerName, setCustomerName] = useState(order.customerName);
     const [status, setStatus] = useState(order.status);
