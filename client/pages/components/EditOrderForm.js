@@ -3,12 +3,12 @@ import axios from 'axios';
 
 const EditOrderForm = ({ order, fetchOrderData, closeModal }) => {
     const [orderId, setOrderId] = useState(order?.orderId || '');
-    const [createdDate, setCreatedDate] = useState(order.createdDate.substring(0, 10));
-    const [customerName, setCustomerName] = useState(order.customerName);
-    const [status, setStatus] = useState(order.status);
+    const [createdDate, setCreatedDate] = useState(order.createdDate ? order.createdDate.substring(0, 10) : null); // Handle null case
+    const [customerName, setCustomerName] = useState(order?.customerName || '');
+    const [status, setStatus] = useState(order?.status|| '');
     const [deliveryDate, setDeliveryDate] = useState(order.deliveryDate ? order.deliveryDate.substring(0, 10) : null); // Handle null case
-    const [orderTotal, setOrderTotal] = useState(order.orderTotal);
-    const [shippingAddress, setShippingAddress] = useState(order.shippingAddress);
+    const [orderTotal, setOrderTotal] = useState(order?.orderTotal|| '');
+    const [shippingAddress, setShippingAddress] = useState(order?.shippingAddress|| '');
     console.log(createdDate);
     const updateOrder = async (event) => {
         event.preventDefault();
